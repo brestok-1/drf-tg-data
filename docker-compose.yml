@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    container_name: api_books
+    volumes:
+      - .:/api_books
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+    networks:
+      - backend
+  db:
+    image: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - "POSTGRES_HOST_AUTH_METHOD=trust"
+    networks:
+      - backend-postgres
+
+volumes:
+  postgres_data:
+
+networks:
+  front_default:
+    external: true
