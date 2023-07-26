@@ -11,20 +11,13 @@ services:
       - 8000:8000
     depends_on:
       - db
-    networks:
-      - backend
   db:
     image: postgres
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     environment:
       - "POSTGRES_HOST_AUTH_METHOD=trust"
-    networks:
-      - backend-postgres
 
 volumes:
   postgres_data:
 
-networks:
-  front_default:
-    external: true
